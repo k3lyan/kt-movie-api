@@ -1,7 +1,9 @@
 package core
 
+import java.time.LocalDate
+
 final class ReleaseDate private (val underlying: String) extends AnyVal {
-  override def toString: String = underlying.toString
+  def toLocalDate: LocalDate = LocalDate.parse(underlying)
 }
 
 object ReleaseDate {

@@ -13,11 +13,12 @@ object Version {
   val postgresql             = "42.2.5"
   val scalaTestContainers    = "0.39.9"
   val scalatest              = "4.0.3"
-  val scala                  = "2.13.7"
+  val scala                  = "2.13.4"
   val scalaUri               = "2.3.1"
   val slickPg                = "0.19.7"
   val slickCats              = "0.10.4"
   val tapir                  = "0.18.3"
+  val bCryptScala            = "4.3.0"
 }
 
 object Library {
@@ -27,6 +28,7 @@ object Library {
   val circe                    = "io.circe"                    %% "circe-generic-extras"            % Version.circe
   val chimney                  = "io.scalaland"                %% "chimney"                         % Version.chimney
   val jwtCore                  = "com.pauldijou"               %% "jwt-core"                        % Version.jwt
+  val bCryptScala              = "com.github.t3hnar"           %% "scala-bcrypt"                    % Version.bCryptScala
   val playAkkaHttpServer       = "com.typesafe.play"           %% "play-akka-http-server"           % Version.play
   val playFilterHelpers        = "com.typesafe.play"           %% "filters-helpers"                 % Version.play
   val playJson                 = "com.typesafe.play"           %% "play-json"                       % Version.playJson
@@ -60,6 +62,7 @@ object Dependencies {
     circe,
     chimney,
     jwtCore,
+    bCryptScala,
     playAkkaHttpServer,
     playFilterHelpers,
     playSlick,

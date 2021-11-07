@@ -14,7 +14,7 @@ lazy val `kt-movie-api` = (project in file("."))
     //==================================================================================================================
     // Compiler
     //==================================================================================================================
-    scalacOptions ++= Seq("-feature", "-language:higherKinds", "-Ypartial-unification"),
+    scalacOptions ++= Seq("-feature", "-language:higherKinds"),
     Test / scalacOptions ++= Seq("-Yrangepos"),
     //==================================================================================================================
     // Dependencies

@@ -18,4 +18,4 @@ object FavouriteId {
   }
 }
 
-final case class Favourite(id: FavouriteId, movieId: MovieId, userId: UserId)
+final case class Favourite(id: FavouriteId, title: String, userId: UserId)

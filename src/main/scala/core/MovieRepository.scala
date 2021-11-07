@@ -1,12 +1,12 @@
 package core
 
-sealed trait CreateOrUpdateMovieDataError
-case object UniqueMovieViolation extends CreateOrUpdateMovieDataError
+sealed trait MovieDataError
+case object UniqueMovieViolation extends MovieDataError
 
 trait MovieRepository[DB[_]] {
 
   // CREATE film
-  def create(input: MovieInput): DB[Either[CreateOrUpdateMovieDataError, Movie]]
+  def create(userId: UserId, input: MovieInput): DB[Either[MovieDataError, Movie]]
 
   // GET films list with filters
   def list(title: String, date: Option[ReleaseDate], genre: Option[String]): DB[Vector[Movie]]
@@ -15,8 +15,8 @@ trait MovieRepository[DB[_]] {
   def find(title: String): DB[Option[Movie]]
 
   // UPDATE a film
-  def update(id: MovieId, input: MovieInput): DB[Either[CreateOrUpdateMovieDataError,Option[Movie]]]
+  def update(userId: UserId, input: MovieInput): DB[Option[Movie]]
 
   // DELETE a film
-  def delete(id: MovieId, creator: UserId): DB[Option[Movie]]
+  def delete(userId: UserId, title: String): DB[Option[Movie]]
 }

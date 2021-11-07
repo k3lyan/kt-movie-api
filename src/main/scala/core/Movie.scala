@@ -25,6 +25,5 @@ case class Movie(
                   releaseDate:   Option[ReleaseDate],
                   cast:          Option[String],
                   genre:         Option[String],
-                  synopsis:      Option[String],
-                  creator:       UserId)
+                  synopsis:      Option[String])
 

@@ -18,4 +18,5 @@ object UserId {
   }
 }
 
-final case class User(id: UserId, pseudo: String, password: String, email: String)
+
+final case class User(id: UserId, pseudo: Pseudo, password: Password)

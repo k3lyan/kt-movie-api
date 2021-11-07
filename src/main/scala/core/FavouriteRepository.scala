@@ -6,8 +6,8 @@ case object UniqueFavouriteViolation extends AddToFavouriteDataError
 trait FavouriteRepository[DB[_]] {
 
   // ADD to favourite
-  def create(input: FavouriteInput): DB[Either[AddToFavouriteDataError, Favourite]]
+  def create(title: String, userId: UserId): DB[Either[AddToFavouriteDataError, Favourite]]
 
  // REMOVE from favourite
-  def delete(favouriteId: FavouriteId): DB[Option[Favourite]]
+  def delete(title: String, userId: UserId): DB[Option[Favourite]]
 }
