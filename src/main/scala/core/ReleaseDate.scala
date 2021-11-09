@@ -11,14 +11,11 @@ object ReleaseDate {
   val Date = dateRegex.r
 
 
-  def apply(raw: Option[String]): Option[ReleaseDate]= raw match {
-    case Some(date) =>
-      date match {
+  def apply(raw: String): Option[ReleaseDate]= raw match {
         case Date(d) => Some(new ReleaseDate(d))
         case _ => throw TimeCodeException("Badly formatted Release Date.")
       }
-    case None => None
-  }
+
 }
 
 case class TimeCodeException(message: String) extends Exception(message)

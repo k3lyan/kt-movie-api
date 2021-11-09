@@ -2,6 +2,7 @@
 *.log
 target
 project/target
+postgres-data
 /.bsp
 /.idea
 /.idea_modules

@@ -1,5 +1,6 @@
 package core
 
+import java.time.LocalDate
 import java.util.UUID
 
 final class MovieId private (val underlying: UUID) extends AnyVal {
@@ -22,7 +23,7 @@ case class Movie(
                   id:            MovieId,
                   title:         String,
                   director:      String,
-                  releaseDate:   Option[ReleaseDate],
+                  releaseDate:   Option[LocalDate],
                   cast:          Option[String],
                   genre:         Option[String],
                   synopsis:      Option[String])

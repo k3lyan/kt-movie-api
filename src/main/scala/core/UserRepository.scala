@@ -3,15 +3,16 @@ package core
 sealed trait UserDataError
 case object UniqueUserViolation extends UserDataError
 
-trait UserRepository [DB[_]] {
 
+
+trait UserRepository [DB[_]] {
   // REGISTER user
-  def create(input: UserInput): DB[Either[UserDataError, User]]
+  def create(pseudo: String, password: String): DB[Either[UserDataError, UserId]]
 
   // GET for login check
-  def find(input: UserInput): DB[Option[User]]
+  def find(pseudo: String): DB[Option[User]]
 
-  // DELETE a user (no implementation yet)
-  //def delete(input: UserInput): DB[Option[User]]
+  // GET for logout check
+  def get(id: UserId): DB[Option[User]]
 }
 

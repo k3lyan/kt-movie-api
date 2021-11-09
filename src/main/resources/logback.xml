@@ -1,0 +1,28 @@
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date %highlight(%-5level) %logger{5} - %message%n%xException{10}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNCSTDOUT" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="STDOUT" />
+    </appender>
+
+        <!-- HIKARI -->
+        <logger name="com.zaxxer.hikari" level="INFO"/>
+        <!-- PLAY -->
+        <logger name="play" level="INFO"/>
+        <!-- LOCAL -->
+        <logger name="movieRegistry" level="DEBUG"/>
+        <!-- SLICK -->
+        <logger name="slick" level="INFO"/>
+        <!-- TAPIR -->
+        <logger name="sttp.tapir.server" level="INFO"/>
+
+        <root level="DEBUG">
+            <appender-ref ref="ASYNCSTDOUT"/>
+        </root>
+
+</configuration>

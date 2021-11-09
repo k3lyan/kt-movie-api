@@ -2,6 +2,7 @@ package core
 
 import java.util.UUID
 
+
 final class UserId private (val underlying: UUID) extends AnyVal {
   override def toString: String = underlying.toString
 }
@@ -19,4 +20,8 @@ object UserId {
 }
 
 
-final case class User(id: UserId, pseudo: Pseudo, password: Password)
+final case class User(id: UserId, pseudo: String, password: String)
+
+
+
+

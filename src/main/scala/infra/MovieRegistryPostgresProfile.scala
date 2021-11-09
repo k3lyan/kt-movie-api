@@ -1,10 +1,11 @@
 package infra
 
 import com.github.tminglei.slickpg.{ExPostgresProfile, PgCirceJsonSupport, PgDate2Support}
-import core.{Favourite, FavouriteId, Movie, MovieId, Password, Pseudo, ReleaseDate, User, UserId}
+import core.{Favourite, FavouriteId, Movie, MovieId, Password, Pseudo, User, UserId}
 import slick.jdbc.{GetResult, PositionedParameters, PositionedResult, SetParameter}
 
 import java.nio.file.Path
+import java.time.LocalDate
 import java.util.UUID
 
 trait MovieRegistryPostgresProfile extends ExPostgresProfile
@@ -23,8 +24,8 @@ trait MovieRegistryPostgresProfile extends ExPostgresProfile
       def apply(rs: PositionedResult) =
         User(
           id         = UserId(rs.nextObject().asInstanceOf[UUID]),
-          pseudo     = Pseudo(rs.nextString),
-          password   = Password(rs.nextString))
+          pseudo     = rs.nextString,
+          password   = rs.nextString)
     }
 
     implicit object GetMovie extends GetResult[Movie] {
@@ -33,7 +34,7 @@ trait MovieRegistryPostgresProfile extends ExPostgresProfile
           id            = MovieId(rs.nextObject().asInstanceOf[UUID]),
           title         = rs.nextString(),
           director      = rs.nextString(),
-          releaseDate   = ReleaseDate(rs.nextStringOption()),
+          releaseDate   = rs.nextLocalDateOption(),
           cast          = rs.nextStringOption(),
           genre         = rs.nextStringOption(),
           synopsis      = rs.nextStringOption())
@@ -44,9 +45,11 @@ trait MovieRegistryPostgresProfile extends ExPostgresProfile
         Favourite(
           id         = FavouriteId(rs.nextObject().asInstanceOf[UUID]),
           title      = rs.nextString,
-          userId    = UserId(rs.nextString))
+          userId    = UserId(rs.nextObject().asInstanceOf[UUID]))
     }
-
+    implicit object GetUserId extends GetResult[UserId] {
+      def apply(rs: PositionedResult) = UserId(rs.nextObject().asInstanceOf[UUID])
+    }
     implicit object SetUserId extends SetParameter[UserId] {
       def apply(v: UserId, pp: PositionedParameters): Unit =
         pp.setObject(v.underlying, columnTypes.uuidJdbcType.sqlType)
@@ -77,10 +80,8 @@ trait MovieRegistryPostgresProfile extends ExPostgresProfile
         pp.setString(v.toString)
     }
 
-    implicit val setOptionReleaseDate: SetParameter[Option[ReleaseDate]] = SetParameter[Option[ReleaseDate]] {
-      case (Some(v: ReleaseDate), pp: PositionedParameters) => pp.setObject(v.toLocalDate, columnTypes.localDateType.sqlType)
-      // OR directly the string?
-      //case (Some(v: ReleaseDate), pp: PositionedParameters) => pp.setObject(v.underlying, columnTypes.localDateType.sqlType)
+    implicit val setOptionReleaseDate: SetParameter[Option[LocalDate]] = SetParameter[Option[LocalDate]] {
+      case (Some(v: LocalDate), pp: PositionedParameters) => pp.setObject(v, columnTypes.localDateType.sqlType)
       case (None, pp: PositionedParameters)                 => pp.setNull(columnTypes.localDateType.sqlType)
     }
   }

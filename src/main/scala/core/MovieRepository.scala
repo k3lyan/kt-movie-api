@@ -9,7 +9,7 @@ trait MovieRepository[DB[_]] {
   def create(userId: UserId, input: MovieInput): DB[Either[MovieDataError, Movie]]
 
   // GET films list with filters
-  def list(title: String, date: Option[ReleaseDate], genre: Option[String]): DB[Vector[Movie]]
+  def list(filters: MovieFilters): DB[Vector[Movie]]
 
   // GET film details
   def find(title: String): DB[Option[Movie]]

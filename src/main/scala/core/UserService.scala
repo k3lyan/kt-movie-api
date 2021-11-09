@@ -5,22 +5,25 @@ import cats.data.EitherT
 
 sealed trait UserServiceError
 case object UserAlreadyExists extends UserServiceError
+case object UserIdentificationError extends UserServiceError
+
 
 final class UserService[F[_] : Functor, DB[_]](protected val userRepository: UserRepository[DB])(implicit val dbManager: Database[F, DB]) {
 
-  def create(input: UserInput): F[Either[UserServiceError, User]] =
-    EitherT(Database[F, DB].execute(userRepository.create(input)))
+  def create(pseudo: String, password: String): F[Either[UserServiceError, UserId]] = {
+    EitherT(Database[F, DB].execute(userRepository.create(pseudo, password)))
       .leftMap[UserServiceError] {
         case UniqueUserViolation => UserAlreadyExists
       }.value
+  }
 
-  def find(input: UserInput): F[Option[User]] =
+  def find(pseudo: String): F[Option[User]] =
     Database[F, DB].execute {
-      userRepository.find(input)
+      userRepository.find(pseudo)
     }
 
-//  def delete(input: UserInput): F[Option[User]] =
-//    Database[F, DB].execute {
-//      userRepository.delete(input)
-//    }
+  def get(id: UserId): F[Option[User]] =
+    Database[F, DB].execute {
+      userRepository.get(id)
+    }
 }

@@ -6,7 +6,7 @@ final case class Password private (value: String) {
 }
 
 object Password {
-  val passwordRegexp = """(?=.*[A-Z])(?=.*[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,15}$""".r
+  val passwordRegexp = """([a-zA-Z0-9]).{2,15}$""".r
 
   def fromString(v: String): Option[Password] =
     passwordRegexp.findFirstIn(v).filter(_ == v)

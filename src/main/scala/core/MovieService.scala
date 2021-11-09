@@ -14,9 +14,9 @@ final class MovieService[F[_] : Functor, DB[_]](protected val movieRepository: M
         case UniqueMovieViolation => MovieAlreadyExists
       }.value
 
-  def list(title: String, date: Option[ReleaseDate], genre: Option[String]): F[Vector[Movie]] =
+  def list(filters: MovieFilters): F[Vector[Movie]] =
     Database[F, DB].execute {
-      movieRepository.list(title, date, genre)
+      movieRepository.list(filters)
     }
 
   def find(title: String): F[Option[Movie]] =

@@ -17,7 +17,7 @@ object Version {
   val scalaUri               = "2.3.1"
   val slickPg                = "0.19.7"
   val slickCats              = "0.10.4"
-  val tapir                  = "0.18.3"
+  val tapir                  = "0.16.16"
   val bCryptScala            = "4.3.0"
 }
 
@@ -27,6 +27,7 @@ object Library {
   val catsFree                 = "org.typelevel"               %% "cats-free"                       % Version.cats
   val circe                    = "io.circe"                    %% "circe-generic-extras"            % Version.circe
   val chimney                  = "io.scalaland"                %% "chimney"                         % Version.chimney
+  val jwtCirce                 = "com.pauldijou"               %% "jwt-circe"                       % Version.jwt
   val jwtCore                  = "com.pauldijou"               %% "jwt-core"                        % Version.jwt
   val bCryptScala              = "com.github.t3hnar"           %% "scala-bcrypt"                    % Version.bCryptScala
   val playAkkaHttpServer       = "com.typesafe.play"           %% "play-akka-http-server"           % Version.play
@@ -62,6 +63,7 @@ object Dependencies {
     circe,
     chimney,
     jwtCore,
+    jwtCirce,
     bCryptScala,
     playAkkaHttpServer,
     playFilterHelpers,

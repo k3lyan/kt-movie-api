@@ -1,3 +1,3 @@
 package core
 
-final case class UserInput(pseudo: Pseudo, password: Password)
+final case class UserInput(pseudo: String, password: String)
