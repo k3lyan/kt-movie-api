@@ -4,8 +4,6 @@ import cats.data.{EitherT, OptionT}
 import cats.implicits._
 import core.{Favourite, FavouriteAlreadyExists, FavouriteInput, FavouriteService, Movie, MovieAlreadyExists, MovieFilters, MovieId, MovieInput, MovieService, Password, Pseudo, User, UserAlreadyExists, UserId, UserIdentificationError, UserInput, UserService}
 import io.circe.generic.auto._
-import io.circe.parser._
-import pdi.jwt.{Jwt, JwtOptions}
 import presentation.Authentication.LoginResponse.{decodeUser, encodeUser, logoutUser}
 import presentation.Authentication.{LoginResponse, UserToken}
 import sttp.model.StatusCode
@@ -103,7 +101,6 @@ trait MovieRegistryEndpoints[F[_], DB[_]] extends AppEndpoints[F]
       .serverLogic {
         case (token: UserToken, _) =>
           OptionT(userService.get({
-            println(s"SUB: ${token.sub}")
             UserId(token.sub)
           }))
             .map((user: User) => logoutUser(user.id).asRight[Error])

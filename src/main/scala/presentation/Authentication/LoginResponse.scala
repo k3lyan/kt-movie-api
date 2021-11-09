@@ -23,16 +23,13 @@ object LoginResponse {
       expiration = Some(Instant.now.plusSeconds(exp).getEpochSecond),
       issuedAt = Some(Instant.now.getEpochSecond)
     )
-    println(s"USER; $userId - PWD: $password - hash: $hash")
     if (password.isBcryptedBounded(hash)) {
-      println("HASH IS CORRECT")
       LoginResponse(JwtCirce.encode(claim(userId.toString), key, algo), exp)
     }
     else LoginResponse("wrong", exp)
   }
 
   def logoutUser(userId: UserId): LoginResponse = {
-    println("WE ENTEREEED")
     val exp = 0
     def claim(psd: String) = JwtClaim(
       subject = psd.some,
@@ -50,6 +47,4 @@ object LoginResponse {
       .left.map[Error](_ => Error("Invalid User Token.", StatusCode.Unauthorized))
   }
 
-  println(encodeUser(UserId("74dec18b-41e3-4dda-9f36-b545e291e792"), "france", "$2a$10$koZC.scEb8hdk5zTSQzFS.GOKGfI0b6YnDYLCkgoKaGl.UPHsSkqy"))
-  println(decodeUser(("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI3NGRlYzE4Yi00MWUzLTRkZGEtOWYzNi1iNTQ1ZTI5MWU3OTIiLCJleHAiOjE3OTQxOTUwOTQsImlhdCI6MTYzNjQxMDMzNH0.enH1VHpIX6NWO2D7geG2w03L1809ZbUjtBPo5k7I9x8")))
 }

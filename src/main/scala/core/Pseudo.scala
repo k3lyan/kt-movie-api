@@ -16,8 +16,6 @@ object Pseudo {
     require(raw != null)
     new Pseudo(raw)
   }
-  println("string".boundedBcrypt)
-  println("string".isBcryptedBounded("$2a$10$WRRpC4uiZIRCS7Uz2u/RSedm1lHJ6Duidhaa8I//Vk88au0zXRr1q"))
 }
 
 

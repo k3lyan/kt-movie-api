@@ -1,7 +1,7 @@
 package infra
 
 import cats.implicits.catsSyntaxEitherId
-import core.{UniqueUserViolation, User, UserDataError, UserId, UserInput, UserRepository}
+import core.{UniqueUserViolation, User, UserDataError, UserId, UserRepository}
 import org.postgresql.util.PSQLException
 import slick.dbio.DBIO
 import infra.MovieRegistryPostgresProfile.api._
